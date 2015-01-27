@@ -12,13 +12,15 @@ namespace WindowsFormsApplication1
         string categorien;
         string magnet;
         string summarry;
+        double rating;
 
-        public Film(string naam, string categorien, string magnet, string summarry) 
+        public Film(string naam, string categorien, string magnet, string summarry, double rating) 
         {
             this.naam = naam;
             this.categorien = categorien;
             this.magnet = magnet;
             this.summarry = summarry;
+            this.rating = rating;
 
         }
         public string Naam
@@ -36,6 +38,10 @@ namespace WindowsFormsApplication1
         public string Magnet
         {
             get { return magnet; }
+        }
+         public double Rating
+        {
+            get{ return rating;}
         }
     }
 }
