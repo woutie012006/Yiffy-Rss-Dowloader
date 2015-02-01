@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
 
-namespace ProftaakOefening
+namespace Yiffy_wpf
 {
     class Database
     {
