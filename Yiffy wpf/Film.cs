@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace Yiffy_wpf
 {
-    class Film
+    public class Film
     {
         string naam;
         string categorien;
@@ -48,7 +48,7 @@ namespace Yiffy_wpf
         }
          public BitmapImage Image
          {
-             get { return image; }
+             get { return this.image; }
          }
     }
 }

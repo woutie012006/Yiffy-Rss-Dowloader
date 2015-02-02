@@ -27,8 +27,7 @@ namespace Yiffy_wpf
 {
     public partial class MainWindow : Window
     {
-        List<Film> films = new List<Film>();
-
+        List<Film> films;
 
         private System.Windows.Forms.NotifyIcon notifyIcon1 = new NotifyIcon();
         private System.Windows.Threading.DispatcherTimer timer1 = new System.Windows.Threading.DispatcherTimer();
@@ -38,6 +37,8 @@ namespace Yiffy_wpf
         public MainWindow()
         {
             InitializeComponent();
+            films =  new List<Film>();
+            
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -54,15 +55,12 @@ namespace Yiffy_wpf
             timer2.Interval = new TimeSpan(1, 0, 0);
             timer2.Start();
 
-            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            //backgroundWorker1.DoWork += backgroundWorker1_DoWork;
 
             notifyIcon1.DoubleClick += notifyIcon1_DoubleClick;
             notifyIcon1.Icon = Yiffy_wpf.Properties.Resources.favicon;
             notifyIcon1.Visible = true;
-
-
-            //System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
-
+            startup();
         }
         void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
@@ -73,18 +71,14 @@ namespace Yiffy_wpf
         }
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            //try
-            //{
             startup();
-            //}
-            //catch (Exception exc) { System.Windows.Forms.MessageBox.Show(exc.ToString()); }
         }
         private void startup()
         {
 
             string url = "https://yts.re/rss/0/All/All/0";
-            try
-            {
+            //try
+            //{
                 XmlReader reader = XmlReader.Create(url);
                 SyndicationFeed feed = SyndicationFeed.Load(reader);
                 reader.Close();
@@ -160,9 +154,9 @@ namespace Yiffy_wpf
                         _magnet = link.Uri.ToString();
                     }
 
+                    BitmapImage _image= getImage(item.Title.Text);
 
-                    films.Add(new Film(item.Title.Text, first, _magnet, _summarry, _imdbD, getImage(item.Title.Text)));
-                    Dispatcher.Invoke(new Action(() => { listBox1.Items.Add(item.Title.Text); }));
+                    Dispatcher.Invoke(new Action(() => { listBox1.Items.Add(item.Title.Text); films.Add(new Film(item.Title.Text, first, _magnet, _summarry, _imdbD, _image)); }));
 
                 }
 
@@ -175,13 +169,12 @@ namespace Yiffy_wpf
                 string _summarry2 = films[0].Summarry;
                 string _category = films[0].Categorien;
                 string _imdb2 = films[0].Rating.ToString();
-                //BitmapImage _image = films[0].Image;
+                BitmapImage _image2 = films[0].Image;
 
 
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    BitmapImage _image = films[0].Image;
-
+                //Dispatcher.Invoke(new Action(() =>
+                //{
+                    
                     richTextBox1.Document.Blocks.Clear();
                     richTextBox1.AppendText(_summarry2);
                     label1.Content = _category;
@@ -189,25 +182,20 @@ namespace Yiffy_wpf
 
                     label2.Content = p[0] + "." + p[1];
                     this.Visibility = Visibility.Visible;
-                    pictureBox1.Source = getImage(films[0].Naam);
+                    pictureBox1.Source = _image2;//getImage(films[0].Naam);
 
-                }));
-
-            }
-            catch (Exception exc)
-            {
-                //Dispatcher.Invoke(new Action(() =>
-                //{
-                //    notifyIcon1_DoubleClick(null, null);
                 //}));
 
-                System.Windows.Forms.MessageBox.Show("no connection could be made. Possible reasons for this might be : \n\n-your internet connection is down.\n-the yify website is down.\n-the rss feed is being renewed\n\nPlease restart the application later.");
+            //}
+            //catch (Exception)
+            //{
+            //    System.Windows.Forms.MessageBox.Show("no connection could be made. Possible reasons for this might be : \n\n-your internet connection is down.\n-the yify website is down.\n-the rss feed is being renewed\n\nPlease restart the application later.");
 
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    System.Windows.Application.Current.Shutdown();
-                }));
-            }
+            //    Dispatcher.Invoke(new Action(() =>
+            //    {
+            //        System.Windows.Application.Current.Shutdown();
+            //    }));
+            //}
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -224,15 +212,41 @@ namespace Yiffy_wpf
             _name = _name.Replace("(", "");
             _name = _name.Replace(")", "");
             _name = _name.Replace(":", "").Replace(";", "").Replace("_1080p", "").Replace(".", "").Replace(",", "");
+            //_name = _name.ToLower();
 
             BitmapImage bitImage = new BitmapImage();
 
 
             string Url = @"https://s.ynet.io/assets/images/movies/" + _name + @"/medium-cover.jpg";
 
-            bitImage.BeginInit();
-            bitImage.UriSource = new Uri(Url);
-            bitImage.EndInit();
+            HttpWebResponse response = null;
+            var request = (HttpWebRequest)WebRequest.Create(Url);
+            request.Method = "HEAD";
+
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+                bitImage.BeginInit();
+                bitImage.UriSource = new Uri(Url);
+                bitImage.EndInit();
+            }
+            catch (WebException)
+            {
+                
+                Url = Url.ToLower();
+                bitImage.BeginInit();
+                bitImage.UriSource = new Uri(Url);
+                bitImage.EndInit();
+            }
+            finally
+            {
+                // Don't forget to close your response.
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
 
 
 
@@ -262,7 +276,9 @@ namespace Yiffy_wpf
 
             char[] p = _imdb.ToCharArray();
             label2.Content = p[0] + "." + p[1];
-            pictureBox1.Source = getImage(listBox1.SelectedItem.ToString());
+            pictureBox1.Source = _image;
+
+            
         }
         private void button1_Click_1(object sender, RoutedEventArgs e)
         {
@@ -317,7 +333,6 @@ namespace Yiffy_wpf
         {
             notifyIcon1.Dispose();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();

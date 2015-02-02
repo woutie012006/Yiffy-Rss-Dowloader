@@ -13,13 +13,13 @@
         </Grid.ColumnDefinitions>
         <Image x:Name="pictureBox1" HorizontalAlignment="Left" Height="288" Margin="10,12,0,0" VerticalAlignment="Top" Width="200" Grid.ColumnSpan="2"/>
         <ListBox x:Name="listBox1" Grid.Column="1" HorizontalAlignment="Left" Height="288" Margin="10,12,0,0" VerticalAlignment="Top" Width="198" SelectionChanged="listBox1_SelectionChanged" MouseDoubleClick="listBox1_MouseDoubleClick"/>
-        <RichTextBox x:Name="richTextBox1" Grid.Column="2" HorizontalAlignment="Left" Height="198" Margin="10,47,0,0" VerticalAlignment="Top" Width="397" Grid.ColumnSpan="2" IsReadOnly="True">
+        <RichTextBox x:Name="richTextBox1" Grid.Column="2" HorizontalAlignment="Left" Height="198" Margin="10,47,0,0" VerticalAlignment="Top" Width="397" Grid.ColumnSpan="2" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <FlowDocument/>
         </RichTextBox>
-        <Label x:Name="label1"  Grid.Column="2" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label2"  Grid.Column="3" HorizontalAlignment="Left" Margin="31,12,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1"  Grid.Column="2" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="label2"  Grid.Column="3" HorizontalAlignment="Left" Margin="31,12,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button x:Name="downloadBtn" Content="Download" Grid.Column="2" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="397" Grid.ColumnSpan="2" Height="50" Click="button1_Click_1" BorderThickness="0"/>
-        <Button Content="X" Grid.Column="3" HorizontalAlignment="Left" Margin="168,0,0,0" VerticalAlignment="Top" Width="41" Background="WhiteSmoke" BorderThickness="0" Height="22" Click="Button_Click"/>
+        <Button x:Name="closeBtn" Content="X" Grid.Column="3" HorizontalAlignment="Left" Margin="168,0,0,0" VerticalAlignment="Top" Width="41" Background="WhiteSmoke" BorderThickness="0" Height="22" Click="Button_Click"/>
 
     </Grid>
 </Window>
