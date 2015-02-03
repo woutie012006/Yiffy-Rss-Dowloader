@@ -22,6 +22,7 @@ using System.Net;
 using System.Resources;
 
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Yiffy_wpf
 {
@@ -77,8 +78,8 @@ namespace Yiffy_wpf
         {
 
             string url = "https://yts.re/rss/0/All/All/0";
-            //try
-            //{
+            try
+            {
                 XmlReader reader = XmlReader.Create(url);
                 SyndicationFeed feed = SyndicationFeed.Load(reader);
                 reader.Close();
@@ -88,27 +89,7 @@ namespace Yiffy_wpf
                 {
 
 
-                    Database.Query = "select count(*) from film where naam=\"" + item.Title.Text + "\"";
-                    Database.OpenConnection();
-                    int _inIt = Convert.ToInt32(Database.Command.ExecuteScalar());
-                    Database.CloseConnection();
-                    string _magnet = "";
-                    if (_inIt == 0)
-                    {
-
-
-                        foreach (var link in item.Links)
-                        {
-                            _magnet = link.Uri.ToString();
-                        }
-                        string title = item.Title.Text.Replace("'", "");
-                        Database.Query = "INSERT INTO film (naam, datum, magnet) values ('" + title + "', '" + DateTime.Now.ToString("dd/mm/yyyy") + "', '" + _magnet + "')";
-                        Database.OpenConnection();
-                        Database.Command.ExecuteNonQuery();
-
-                        Database.CloseConnection();
-
-                    }
+                    
 
                     string first = item.Summary.Text;
                     first = first.Remove(0, first.IndexOf("Genre: "));
@@ -149,12 +130,36 @@ namespace Yiffy_wpf
                     _imdb = _imdb.Remove(0, _imdb.IndexOfAny(numbers));
                     double _imdbD = Convert.ToDouble(_imdb);
 
+
+                    string _magnet = "";
                     foreach (var link in item.Links)
                     {
                         _magnet = link.Uri.ToString();
                     }
 
                     BitmapImage _image= getImage(item.Title.Text);
+                    
+                    Database.Query = "select count(*) from film where titel=\"" + item.Title.Text.Replace("'", "") + "\"";
+                    Database.OpenConnection();
+                    int _inIt = Convert.ToInt32(Database.Command.ExecuteScalar());
+                    Database.CloseConnection();
+                    
+                    if (_inIt == 0)
+                    {
+
+
+                        foreach (var link in item.Links)
+                        {
+                            _magnet = link.Uri.ToString();
+                        }
+                        string title = item.Title.Text.Replace("'", "");//might need image but still figuring out bitmapimage to base64
+                        Database.Query = "INSERT INTO film (titel, categorie, magnet, summarry, imdb, datum) values ('" + title + "', '" + first + "', '" + _magnet + "', '" + _summarry.Replace("'","") + "', '" + _imdbD.ToString() + "', '"  + DateTime.Now.ToString("dd/mm/yyyy") +  "')";
+                        Database.OpenConnection();
+                        Database.Command.ExecuteNonQuery();
+
+                        Database.CloseConnection();
+
+                    }
 
                     Dispatcher.Invoke(new Action(() => { listBox1.Items.Add(item.Title.Text); films.Add(new Film(item.Title.Text, first, _magnet, _summarry, _imdbD, _image)); }));
 
@@ -186,16 +191,48 @@ namespace Yiffy_wpf
 
                 //}));
 
-            //}
-            //catch (Exception)
-            //{
-            //    System.Windows.Forms.MessageBox.Show("no connection could be made. Possible reasons for this might be : \n\n-your internet connection is down.\n-the yify website is down.\n-the rss feed is being renewed\n\nPlease restart the application later.");
+            }
+            catch (Exception)
+            {
+                backupstartup();
+                System.Windows.Forms.MessageBox.Show("no connection could be made. Possible reasons for this might be : \n\n-your internet connection is down.\n-the yify website is down.\n-the rss feed is being renewed\n\nPlease restart the application later.");
 
-            //    Dispatcher.Invoke(new Action(() =>
-            //    {
-            //        System.Windows.Application.Current.Shutdown();
-            //    }));
-            //}
+                //Dispatcher.Invoke(new Action(() =>
+                //{
+                //    System.Windows.Application.Current.Shutdown();
+                //}));
+            }
+        }
+
+        private void backupstartup()
+        {
+            Database.Query = "SELECT titel , categorie , magnet , summarry , imdb , datum  FROM film";
+            Database.OpenConnection();
+
+            SQLiteDataReader reader = Database.Command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string _titel = Convert.ToString(reader["titel"]);
+                string _categorie = Convert.ToString(reader["categorie"]);
+                string _magnet = Convert.ToString(reader["magnet"]);
+                string _summarry = Convert.ToString(reader["summarry"]);
+                string _imdb = Convert.ToString(reader["imdb"]);
+                string _datum = Convert.ToString(reader["datum"]);
+                
+                listBox1.Items.Add( _titel);
+                label1.Content = _categorie;
+                label2.Content = _imdb;
+                richTextBox1.Document.Blocks.Clear();
+                richTextBox1.AppendText(_summarry);
+                BitmapImage empty =getImage(_titel);
+                
+                films.Add(new Film(_titel, _categorie, _magnet, _summarry,Convert.ToDouble( _imdb), empty));
+            }
+            this.Visibility = Visibility.Visible;
+            Database.CloseConnection();
+
+
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -338,5 +375,8 @@ namespace Yiffy_wpf
             System.Windows.Application.Current.Shutdown();
             
         }
+               
     }
+
+
 }

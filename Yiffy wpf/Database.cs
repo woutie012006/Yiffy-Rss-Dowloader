@@ -114,7 +114,7 @@ namespace Yiffy_wpf
             try
             {
                 // Nieuwe tabel met drie kolommen: number (INT), name (VARCHAR), email (VARCHAR)
-                Query = "CREATE TABLE film (naam Text , datum Text, magnet Text)";
+                Query = "CREATE TABLE film (titel Text , categorie Text, magnet Text, summarry Text, imdb Text, datum Text)";
                 Command.ExecuteNonQuery();
 
 
