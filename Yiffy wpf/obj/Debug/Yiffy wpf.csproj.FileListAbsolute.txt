@@ -12,3 +12,5 @@ D:\code\c#\Yiffy wpf\Yiffy wpf\obj\Debug\Yiffy wpf.csproj.GenerateResource.Cache
 D:\code\c#\Yiffy wpf\Yiffy wpf\obj\Debug\Yiffy wpf.exe
 D:\code\c#\Yiffy wpf\Yiffy wpf\obj\Debug\Yiffy wpf.pdb
 D:\code\c#\Yiffy wpf\Yiffy wpf\bin\Debug\System.Data.SQLite.dll
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\bin\Debug\Yiffy wpf.exe.config
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\Debug\Yiffy wpf.exe

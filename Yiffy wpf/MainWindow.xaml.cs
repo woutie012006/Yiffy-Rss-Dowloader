@@ -53,8 +53,22 @@ namespace Yiffy_wpf
             notifyIcon1.DoubleClick += notifyIcon1_DoubleClick;
             notifyIcon1.Icon = Properties.Resources.favicon;
             notifyIcon1.Visible = true;
-            startup();
+            
+            try { 
+                startup();
+            }
+            catch (Exception)
+            {
+                backupstartup();
+                MessageBox.Show(@"no connection could be made. Possible reasons for this might be : \n
+                  \n-your internet connection is down.
+                  \n-the yify website is down.
+                  \n-the rss feed is being renewed
+                  \n
+                  \nPlease restart the application later.");
+            }
         }
+
         void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             if (Visibility == Visibility.Visible)
@@ -62,16 +76,11 @@ namespace Yiffy_wpf
             else
                 Visibility = Visibility.Visible;
         }
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            startup();
-        }
         private void startup()
         {
 
             const string url = "https://yts.re/rss/0/All/All/0";
-            try
-            {
+           
             XmlReader reader = XmlReader.Create(url);
             SyndicationFeed feed = SyndicationFeed.Load(reader);
             reader.Close();
@@ -159,19 +168,6 @@ namespace Yiffy_wpf
                 qualityImage.Source = new BitmapImage(new Uri("pack://application:,,,/Yiffy wpf;component/Resources/banner3D.png", UriKind.Absolute));
             else
                 qualityImage.Source = new BitmapImage(new Uri("pack://application:,,,/Yiffy wpf;component/Resources/banner720p.png", UriKind.Absolute));
-
-
-            }
-            catch (Exception)
-            {
-                backupstartup();
-                MessageBox.Show(@"no connection could be made. Possible reasons for this might be : \n
-                  \n-your internet connection is down.
-                  \n-the yify website is down.
-                  \n-the rss feed is being renewed
-                  \n
-                  \nPlease restart the application later.");
-            }
 
         }
         /// <summary>
