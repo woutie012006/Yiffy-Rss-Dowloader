@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Data.SQLite;
 using System.IO;
 
@@ -54,7 +50,7 @@ namespace Yiffy_wpf
         public static void OpenConnection()
         {
             // Controleer of de verbinding niet al open is
-            if (connection.State != System.Data.ConnectionState.Open)
+            if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
             }
@@ -66,7 +62,7 @@ namespace Yiffy_wpf
         public static void CloseConnection()
         {
             // Controleer of de verbinding niet al gesloten is
-            if (connection.State != System.Data.ConnectionState.Closed)
+            if (connection.State != ConnectionState.Closed)
             {
                 connection.Close();
             }
@@ -114,7 +110,7 @@ namespace Yiffy_wpf
             try
             {
                 // Nieuwe tabel met drie kolommen: number (INT), name (VARCHAR), email (VARCHAR)
-                Query = "CREATE TABLE film (titel Text , categorie Text, magnet Text, summarry Text, imdb Text, datum Text)";
+                Query = "CREATE TABLE film (titel Text , categorie Text, magnet Text, summarry Text, imdb Text, datum Text, image Text)";
                 Command.ExecuteNonQuery();
 
 

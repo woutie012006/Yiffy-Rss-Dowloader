@@ -21,5 +21,8 @@
         <Button x:Name="downloadBtn" Content="Download" Grid.Column="2" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="397" Grid.ColumnSpan="2" Height="50" Click="button1_Click_1" BorderThickness="0"/>
         <Button x:Name="closeBtn" Content="X" Grid.Column="3" HorizontalAlignment="Left" Margin="168,0,0,0" VerticalAlignment="Top" Width="41" Background="WhiteSmoke" BorderThickness="0" Height="22" Click="Button_Click"/>
 
+        <Image x:Name="qualityImage" Height="100" Width="100"  Margin="10,12,98,0" VerticalAlignment="Top"/>
+
+
     </Grid>
 </Window>

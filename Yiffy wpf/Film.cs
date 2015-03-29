@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
 namespace Yiffy_wpf
@@ -10,13 +6,13 @@ namespace Yiffy_wpf
     public class Film
     {
         string naam;
-        string categorien;
+        List<string> categorien;
         string magnet;
         string summarry;
         double rating;
         BitmapImage image;
 
-        public Film(string naam, string categorien, string magnet, string summarry, double rating, BitmapImage image) 
+        public Film(string naam, List<string> categorien, string magnet, string summarry, double rating, BitmapImage image) 
         {
             this.naam = naam;
             this.categorien = categorien;
@@ -30,7 +26,7 @@ namespace Yiffy_wpf
         {
             get{ return naam;}
         }
-        public string Categorien
+        public List<string> Categorien
         {
             get{ return categorien;}
         }
@@ -48,7 +44,7 @@ namespace Yiffy_wpf
         }
          public BitmapImage Image
          {
-             get { return this.image; }
+             get { return image; }
          }
     }
 }
