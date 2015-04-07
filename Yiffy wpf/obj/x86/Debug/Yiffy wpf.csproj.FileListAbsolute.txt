@@ -12,3 +12,16 @@ D:\code\c#\Yiffy wpf\Yiffy wpf\obj\x86\Debug\Yiffy wpf.csproj.GenerateResource.C
 D:\code\c#\Yiffy wpf\Yiffy wpf\obj\x86\Debug\Yiffy wpf.exe
 D:\code\c#\Yiffy wpf\Yiffy wpf\obj\x86\Debug\Yiffy wpf.pdb
 D:\code\c#\Yiffy wpf\Yiffy wpf\obj\x86\Debug\Yiffy wpf.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\bin\x86\Debug\Yiffy wpf.exe.config
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\bin\x86\Debug\Yiffy wpf.exe
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\bin\x86\Debug\Yiffy wpf.pdb
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\Yiffy wpf.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\MainWindow.baml
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\MainWindow.g.cs
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\App.g.cs
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\Yiffy wpf_MarkupCompile.cache
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\Yiffy wpf.g.resources
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\Yiffy_wpf.Properties.Resources.resources
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\Yiffy wpf.csproj.GenerateResource.Cache
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\Yiffy wpf.exe
+C:\Users\user\Documents\GitHub\Yiffy-Rss-Dowloader\Yiffy wpf\obj\x86\Debug\Yiffy wpf.pdb
