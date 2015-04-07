@@ -79,7 +79,7 @@ namespace Yiffy_wpf
         private void startup()
         {
 
-            const string url = "https://yts.re/rss/0/All/All/0";
+            const string url = "https://yts.to/rss/0/All/All/0";
            
             XmlReader reader = XmlReader.Create(url);
             SyndicationFeed feed = SyndicationFeed.Load(reader);
@@ -187,7 +187,7 @@ namespace Yiffy_wpf
             {
                 string _titel = Convert.ToString(reader["titel"]);
                 List<string> _categorie  = new List<string>();
-                _categorie[0]= Convert.ToString(reader["categorie"]);
+                _categorie.Add(Convert.ToString(reader["categorie"]));
                 string _magnet = Convert.ToString(reader["magnet"]);
                 string _summarry = Convert.ToString(reader["summarry"]);
                 string _imdb = Convert.ToString(reader["imdb"]);
